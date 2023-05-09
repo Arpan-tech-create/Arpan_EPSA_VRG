@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Server Storage Usage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    #chart {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-end;
+      height: 400px;
+      margin-top: 50px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .bar {
+      flex: 1;
+      background-color: lightcoral;
+      margin-right: 20px;
+      height: 0;
+      transition: height 0.3s;
+    }
+
+    .bar1 {
+      flex: 1;
+      background-color: greenyellow;
+      margin-right: 10px;
+      height: 0;
+      transition: height 0.3s;
+    }
+
+    .bar:hover {
+      background-color: orange;
+    }
+
+    .bar1:hover {
+      background-color: lightseagreen;
+    }
+
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+      font-size: 16px;
+      color: #333;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .storage-legend {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: lightcoral;
+      margin-right: 0.5rem;
+    }
+
+    .free-space-legend {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: greenyellow;
+      margin-left: 0.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 0.5rem;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Server Storage Usage</h1>
+  <h2>Occupied and Free Space</h2>
+  <div id="chart">
+    <div v-for="data in usageData1" class="bar" :style="{height: data.usage + '%'}"></div>
+    <div v-for="data in usageData1" class="bar1" :style="{height: data.free + '%'}"></div>
+  </div>
+  <div class="chart-legend">
+    <div class="storage-legend"></div> Occupied
+    <div class="free-space-legend"></div> Free Space
+  </div>
+
+  <script src="{{url_for('static',filename='vue.js')}}"></script>
+  <script>
+    new Vue({
+      el: '#chart',
+      data: {
+        usageData1: [{
+          server: 'Server 1',
+          usage: 75,
+          free: 25,
+          label: 'Server 1'
+        }],
+      }
+    });
+  </script>
+</body>
+
+</html>
